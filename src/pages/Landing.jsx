@@ -1,39 +1,59 @@
-import React from 'react'
-import Icon from '../components/Common/Icon';
-import Iphone_Image from '../images/iphone.png';
-import Paragraph from '../components/Common/Paragraph';
-import Headings_Wrapper from '../components/Common/Headings';
-import Button from '../components/Common/Button';
+import React, { useEffect, useState } from 'react';
+import { TopSection } from '../components/Landing/TopSection';
 import Footer from '../components/Layout/Footer';
+import GetStartedSection from '../components/Landing/GetStartedSection';
+import LandingTable from '../components/Landing/Table';
+import { socket } from '../helpers/Socket';
 
 
 const Landing = () => {
+    const [data, setData] = useState();
+
+    useEffect(() => {
+        function onConnect(socket) {
+            var id = socket.io.engine.id;
+            console.log("User Connected : ", id)
+
+
+
+        }
+
+        function onDisconnect() {
+            console.log("User disConnected")
+
+            //   setIsConnected(false);
+        }
+
+        function onFooEvent(value) {
+            //   setFooEvents(previous => [...previous, value]);
+        }
+
+        socket.on('connect', () => onConnect(socket));
+        socket.emit("initial_data");
+        socket.on("get_data", (data) => setData(data));
+        socket.on('disconnect', onDisconnect);
+        socket.on('updated', (data) => { setData(data); console.log('got updated value: ', data) });
+
+
+
+
+        return () => {
+            socket.off('connect', onConnect);
+            socket.off('disconnect', onDisconnect);
+            //   socket.off('foo', onFooEvent);
+        };
+    }, []);
+
+
     return (
         <>
-            <section className='flex mt-14'>
-                <div className='flex-1 mt-28'>
-                    <Headings_Wrapper>
-                        <h1>Live In Your Cryptocurrency, Play In Ours.</h1>
-                    </Headings_Wrapper>
+            <TopSection />
 
-                    <div className='w-3/4 mt-12'>
-                        <Paragraph text={'Build your crypto portfolio with us. We are the most trusted and reliable crypto trading platform out there.'} />
-                    </div>
+            <LandingTable data={data} />
 
-                    <div className='mt-14'>
-                        <Button width={'191px'} height={'66px'} variant={'primary-black'} value={'Get Started'} />
-                    </div>
-                </div>
+            <GetStartedSection />
 
-                <div className='flex-1 flex justify-end'>
-                    <img src={Iphone_Image} alt='iphone_image' />
-                </div>
-
-
-
-            </section>
-
-            <Footer />
+            {/* <Footer /> */}
         </>
     )
 }

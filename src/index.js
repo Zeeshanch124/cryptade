@@ -4,6 +4,7 @@ import './index.css';
 import AppRoutes from './pages/AppRoutes';
 import reportWebVitals from './reportWebVitals';
 import { Routes, Route, Link, useParams, BrowserRouter } from "react-router-dom";
+// import { socket } from './helpers/Socket';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

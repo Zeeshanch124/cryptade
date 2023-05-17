@@ -1,6 +1,8 @@
 import React from 'react'
 import Navbar from './Navbar';
 import { Outlet } from "react-router-dom";
+import Footer from './Footer';
+
 
 export const Index = (props) => {
     return (
@@ -8,6 +10,7 @@ export const Index = (props) => {
         <div>
             <Navbar />
             <Outlet />
+            <Footer />
         </div>
     )
 }

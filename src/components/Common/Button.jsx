@@ -3,12 +3,12 @@ import tw from 'twin.macro';
 import styled from "styled-components";
 
 const StyledButton = styled.button`
-  ${tw`text-center px-6 py-2 rounded-sm font-bold text-white`};
+  ${tw`text-center px-6 py-2 rounded-sm font-bold text-white bg-primary `};
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   ${({ disabled }) => disabled && tw`opacity-50`}
-  ${({ variant }) => variant === "primary" && tw`bg-primary text-white`}
-  ${({ variant }) => variant === "primary-black" && tw`bg-primary text-black`}
+  ${({ variant }) => variant === "primary" && tw` text-white `}
+  ${({ variant }) => variant === "primary-black" && tw` text-black`}
 
 `;
 
@@ -19,8 +19,7 @@ const Button = ({ value, loading = false, variant = undefined, text = undefined,
 
     return (
         <StyledButton variant={variant || defaultVariant} text={text || defaultText} {...rest}>
-            {console.log("text is: ", text)}
-            <div >
+            <div>
                 <div>{value}</div>
 
                 {loading && (

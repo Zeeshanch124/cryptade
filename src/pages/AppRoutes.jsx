@@ -4,6 +4,7 @@ import Layout from "../components/Layout/Layout";
 import { Route, Routes } from "react-router-dom";
 import tw from 'twin.macro';
 import styled from "styled-components";
+import LoginPage from "./Login";
 
 
 const Body = styled.div`${tw`bg-backColor min-h-screen text-white lg:px-24 xl:px-36 2xl:px-36`}`;
@@ -15,8 +16,11 @@ const AppRoutes = () => {
         <>
             <Body>
                 <Routes>
+                    {/* <Route index path="/login" element={<LoginPage />} /> */}
                     <Route path="/" element={<Layout />}>
-                        <Route path="/" element={<Landing />} />
+                        <Route index path="/" element={<Landing />} />
+                        <Route index path="/login" element={<LoginPage />} />
+
                     </Route>
                 </Routes>
             </Body>
